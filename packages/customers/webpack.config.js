@@ -46,7 +46,7 @@ module.exports = {
       remotes: {},
       exposes: {
         './CustomersPage': './src/pages/Customers/index.tsx',
-        './CustomersRoutes': './src/routes/index.ts'
+        './CustomersMenu': './src/menu/index.ts'
 
       },
       shared: {

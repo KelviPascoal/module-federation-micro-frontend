@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as S from "./styles";
+
 //@ts-ignore
-import dashboardRoutes from "DashboardApp/DashboardRoutes";
+import customersMenu from "CustomersApp/CustomersMenu";
 //@ts-ignore
-import customersRoutes from "CustomersApp/CustomersRoutes";
+import productMenu from "ProductApp/ProductMenu";
 //@ts-ignore
-import productRoutes from "ProductApp/ProductRoutes";
+import dashboardMenu from "DashboardApp/DashboardMenu";
 
 export type MenuRoute = {
   path: string;
@@ -13,14 +14,26 @@ export type MenuRoute = {
 };
 
 function Menu() {
-  const [routes, setRoutes] = useState<MenuRoute[]>([]);
+  const [menu, setMenu] = useState([]);
+
+  console.log("productMenu", productMenu);
+
+  useEffect(() => {
+    !!customersMenu && setMenu((prev) => [...prev, ...customersMenu]);
+    !!dashboardMenu && setMenu((prev) => [...prev, ...dashboardMenu]);
+    !!productMenu && setMenu((prev) => [...prev, ...productMenu]);
+  }, []);
 
   return (
-    <S.Wrapper>
-      <a href="/dashboard">Dashboard</a>
-      <a href="/products">Products</a>
-      <a href="/custormers">Customers</a>
-    </S.Wrapper>
+    <>
+      <S.Wrapper>
+        {menu.map(({ label, path }, index) => (
+          <a key={`${index}`} href={path}>
+            {label}
+          </a>
+        ))}
+      </S.Wrapper>
+    </>
   );
 }
 export default Menu;

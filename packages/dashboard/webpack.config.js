@@ -46,7 +46,7 @@ module.exports = {
       remotes: {},
       exposes: {
         './DashboardPage': './src/pages/Dashboard/index.tsx',
-        './DashboardRoutes': './src/routes/index.ts'
+        './DashboardMenu': './src/menu/index.ts'
       },
       shared: {
         ...deps,

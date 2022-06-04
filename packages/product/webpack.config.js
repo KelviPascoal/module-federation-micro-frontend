@@ -47,7 +47,7 @@ module.exports = {
       exposes: {
         './ProductPageMarketing': './src/pages/Marketing/index.tsx',
         './ProductPageManagement': './src/pages/Management/index.tsx',
-        './ProductRoutes': './src/routes/index.ts'
+        './ProductMenu': './src/menu/index.ts'
 
       },
       shared: {

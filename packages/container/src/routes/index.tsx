@@ -12,12 +12,9 @@ const ProductPageManagement = React.lazy(
 //@ts-ignore
 const CustomersPage = React.lazy(() => import("CustomersApp/CustomersPage"));
 //@ts-ignore
-import dashboardRoutes from "DashboardApp/DashboardRoutes";
 import { Routes, Route } from "react-router-dom";
 
 export const AppRouter = () => {
-  console.log("route", dashboardRoutes);
-
   return (
     <Routes>
       <Route

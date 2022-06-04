@@ -1,4 +1,4 @@
-const routes = [
+const menu = [
   {
     path: "/products",
     label: "Products",
@@ -9,4 +9,4 @@ const routes = [
   },
 ];
 
-export default routes;
+export default menu;

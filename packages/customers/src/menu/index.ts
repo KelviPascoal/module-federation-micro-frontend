@@ -1,8 +1,8 @@
-const routes = [
+const menu = [
   {
     path: "/customers",
     label: "Customers",
   },
 ];
 
-export default routes;
+export default menu;

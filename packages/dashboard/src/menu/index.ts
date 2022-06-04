@@ -1,8 +1,8 @@
-const routes = [
+const menu = [
   {
     path: "/dashboard",
     label: "Dashboard",
   },
 ];
 
-export default routes;
+export default menu;
