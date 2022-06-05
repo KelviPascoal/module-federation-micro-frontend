@@ -1,56 +1,40 @@
-import React, { Suspense } from "react";
-//@ts-ignore
-const DashboardPage = React.lazy(() => import("DashboardApp/DashboardPage"));
-const ProductPageMarketing = React.lazy(
-  //@ts-ignore
-  () => import("ProductApp/ProductPageMarketing")
-);
-const ProductPageManagement = React.lazy(
-  //@ts-ignore
-  () => import("ProductApp/ProductPageManagement")
-);
-//@ts-ignore
-const CustomersPage = React.lazy(() => import("CustomersApp/CustomersPage"));
-//@ts-ignore
-import { Routes, Route } from "react-router-dom";
+import React, { Suspense, useCallback, useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom";
+// @ts-ignore
+import customersRoutes from "CustomersApp/CustomersRoutes";
+// @ts-ignore
+import productRoutes from "ProductApp/ProductRoutes";
+// @ts-ignore
+import dashboardRoutes from "DashboardApp/DashboardRoutes";
 
-export const AppRouter = () => {
-  return (
-    <Routes>
-      <Route
-        path="/dashboard"
-        element={
-          <Suspense fallback={<p>loading..."</p>}>
-            <DashboardPage />
-          </Suspense>
-        }
-      />
-      <Route
-        path="/products"
-        element={
-          <Suspense fallback={<p>loading..."</p>}>
-            <ProductPageMarketing />
-          </Suspense>
-        }
-      />
-
-      <Route
-        path="/products/management"
-        element={
-          <Suspense fallback={<p>loading..."</p>}>
-            <ProductPageManagement />
-          </Suspense>
-        }
-      />
-
-      <Route
-        path="/custormers"
-        element={
-          <Suspense fallback={<p>loading..."</p>}>
-            <CustomersPage />
-          </Suspense>
-        }
-      />
-    </Routes>
-  );
+type RouteMF = {
+  path: string;
+  element: React.ReactElement;
 };
+
+export function AppRouter() {
+  const [routes, setRoutes] = useState<RouteMF[]>([]);
+
+  const loadRoutes = useCallback(async () => {
+    !!customersRoutes && setRoutes((prev) => [...prev, ...customersRoutes]);
+    !!productRoutes && setRoutes((prev) => [...prev, ...productRoutes]);
+    !!dashboardRoutes && setRoutes((prev) => [...prev, ...dashboardRoutes]);
+    console.log("customersRoutes", customersRoutes);
+  }, []);
+
+  useEffect(() => {
+    loadRoutes();
+  }, [loadRoutes]);
+
+  return (
+    <>
+      <Suspense fallback={<p>"...loading"</p>}>
+        <Routes>
+          {routes?.map(({ element, path }: RouteMF) => (
+            <Route key={path} path={path} element={element} />
+          ))}
+        </Routes>
+      </Suspense>
+    </>
+  );
+}
