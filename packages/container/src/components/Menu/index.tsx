@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import * as S from "./styles";
 
 //@ts-ignore
@@ -14,15 +14,13 @@ export type MenuRoute = {
 };
 
 function Menu() {
-  const [menu, setMenu] = useState([]);
+  const [menu, setMenu] = useState([
+    ...customersMenu,
+    ...dashboardMenu,
+    ...productMenu,
+  ]);
 
   console.log("productMenu", productMenu);
-
-  useEffect(() => {
-    !!customersMenu && setMenu((prev) => [...prev, ...customersMenu]);
-    !!dashboardMenu && setMenu((prev) => [...prev, ...dashboardMenu]);
-    !!productMenu && setMenu((prev) => [...prev, ...productMenu]);
-  }, []);
 
   return (
     <>
