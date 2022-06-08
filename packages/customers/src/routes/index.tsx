@@ -5,7 +5,7 @@ const CustomersPage = React.lazy(() => import("../pages/Customers"));
 const routes = [
   {
     element: <CustomersPage />,
-    path: "/customers",
+    path: "/customers/customers-list",
   },
 ];
 

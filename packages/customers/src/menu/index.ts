@@ -1,6 +1,6 @@
 const menu = [
   {
-    path: "/customers",
+    path: "/customers/customers-list",
     label: "Customers",
   },
 ];
