@@ -6,19 +6,20 @@ import { AppRouter } from "./routes";
 import GlobalStyle from "./styles/global";
 //@ts-ignore
 import customersMenu from "CustomersApp/CustomersMenu";
+import { ChakraProvider } from "@chakra-ui/react";
+import { theme as chakraTheme } from "./styles/chakra/theme";
 //@ts-ignore
 
 const App = () => (
-  <BrowserRouter>
-    <div style={{ display: "flex" }}>
-      <GlobalStyle />
-      <Menu />
-      <div>
-        <h3>{!!customersMenu && JSON.stringify(customersMenu)}</h3>
+  <ChakraProvider theme={chakraTheme}>
+    <BrowserRouter>
+      <div style={{ display: "flex" }}>
+        <GlobalStyle />
+        <Menu />
+        <AppRouter />
       </div>
-      <AppRouter />
-    </div>
-  </BrowserRouter>
+    </BrowserRouter>
+  </ChakraProvider>
 );
 
 const root = ReactDOM.createRoot(
