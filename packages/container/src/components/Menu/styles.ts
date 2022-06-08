@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Wrapper = styled.nav`
   background-color: #f3f2ef;
-  max-width: 8rem;
+  width: 16rem;
   height: 100vh;
   padding: 1.6rem;
 
@@ -14,4 +14,12 @@ export const Wrapper = styled.nav`
     text-decoration: none;
     color: #191919;
   }
+`;
+
+export const Logo = styled.div`
+  margin-bottom: 1.6rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

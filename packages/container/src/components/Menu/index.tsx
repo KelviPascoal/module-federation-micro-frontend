@@ -1,34 +1,85 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import * as S from "./styles";
 
-//@ts-ignore
-import customersMenu from "CustomersApp/CustomersMenu";
-//@ts-ignore
-import productMenu from "ProductApp/ProductMenu";
-//@ts-ignore
-import dashboardMenu from "DashboardApp/DashboardMenu";
+import { Link } from "react-router-dom";
+import { customersModule } from "../../modules/customersModule";
+import { dashboardModule } from "../../modules/dashboardtModule";
+import { productModule } from "../../modules/productModule";
 
-export type MenuRoute = {
+import { MoonIcon } from "@chakra-ui/icons";
+import { background, Box, Button, color } from "@chakra-ui/react";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+} from "@chakra-ui/react";
+
+type RouteProps = {
   path: string;
   label: string;
 };
 
-function Menu() {
-  const [menu, setMenu] = useState([
-    ...customersMenu,
-    ...dashboardMenu,
-    ...productMenu,
-  ]);
+export type MenuRoute = {
+  path: string;
+  label: string;
+  submenus?: RouteProps[];
+  title?: string;
+};
 
-  console.log("productMenu", productMenu);
+function Menu() {
+  const [menu, setMenu] = useState([]);
+
+  const loadMenus = useCallback(async () => {
+    const customersMenu = await customersModule.getMenus();
+    const dashboardMenu = await dashboardModule.getMenus();
+    const productMenu = await productModule.getMenus();
+
+    setMenu([...customersMenu, ...dashboardMenu, ...productMenu]);
+  }, []);
+
+  useEffect(() => {
+    loadMenus();
+  }, []);
 
   return (
     <>
       <S.Wrapper>
-        {menu.map(({ label, path }, index) => (
-          <a key={`${index}`} href={path}>
-            {label}
-          </a>
+        <S.Logo>
+          <MoonIcon w={6} h={6} />
+          <h1>Moon</h1>
+        </S.Logo>
+
+        {menu.map((route: MenuRoute, index) => (
+          <>
+            {!!route.submenus ? (
+              <Accordion allowToggle>
+                <AccordionItem border="none">
+                  <AccordionButton>
+                    <Box flex="1" textAlign="left">
+                      {!!route.title && route.title}
+                    </Box>
+                  </AccordionButton>
+                  {route.submenus.map((submenu) => (
+                    <AccordionPanel paddingLeft="10" key={submenu.path} pb={4}>
+                      <Link style={{ color: "gray" }} to={submenu.path}>
+                        {submenu.label}
+                      </Link>
+                    </AccordionPanel>
+                  ))}
+                </AccordionItem>
+              </Accordion>
+            ) : (
+              <Link key={`${index}`} to={route.path}>
+                <Button background="transparent" w="full" fontWeight={400}>
+                  <Box flex="1" textAlign="left" w="full">
+                    {route.label}
+                  </Box>
+                </Button>
+              </Link>
+            )}
+          </>
         ))}
       </S.Wrapper>
     </>

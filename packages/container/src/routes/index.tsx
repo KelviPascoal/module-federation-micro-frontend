@@ -1,11 +1,8 @@
 import React, { Suspense, useCallback, useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
-// @ts-ignore
-import customersRoutes from "CustomersApp/CustomersRoutes";
-// @ts-ignore
-import productRoutes from "ProductApp/ProductRoutes";
-// @ts-ignore
-import dashboardRoutes from "DashboardApp/DashboardRoutes";
+import { customersModule } from "../modules/customersModule";
+import { dashboardModule } from "../modules/dashboardtModule";
+import { productModule } from "../modules/productModule";
 
 type RouteMF = {
   path: string;
@@ -16,10 +13,15 @@ export function AppRouter() {
   const [routes, setRoutes] = useState<RouteMF[]>([]);
 
   const loadRoutes = useCallback(async () => {
-    !!customersRoutes && setRoutes((prev) => [...prev, ...customersRoutes]);
-    !!productRoutes && setRoutes((prev) => [...prev, ...productRoutes]);
-    !!dashboardRoutes && setRoutes((prev) => [...prev, ...dashboardRoutes]);
-    console.log("customersRoutes", customersRoutes);
+    const customersRoutes = await customersModule.getRoutes();
+    const productRoutes = await productModule.getRoutes();
+    const dashboardRoutes = await dashboardModule.getRoutes();
+
+    setRoutes([
+      ...customersRoutes.filter((item) => item.path.startsWith("/customers")),
+      ...productRoutes.filter((item) => item.path.startsWith("/product")),
+      ...dashboardRoutes.filter((item) => item.path.startsWith("/dashboard")),
+    ]);
   }, []);
 
   useEffect(() => {
