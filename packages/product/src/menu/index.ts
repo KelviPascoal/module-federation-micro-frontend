@@ -1,11 +1,18 @@
 const menu = [
   {
+    title: "Products",
     path: "/products",
-    label: "Products",
-  },
-  {
-    path: "/products/management",
-    label: "Product management",
+    submenus: [
+      {
+        label: "Products",
+        path: "/products/products-management",
+      },
+
+      {
+        label: "Best sallers",
+        path: "/products/best-sallers",
+      },
+    ],
   },
 ];
 

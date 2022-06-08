@@ -1,16 +1,17 @@
 import React from "react";
 
-const ProductManagementPage = React.lazy(() => import("../pages/Management"));
-const ProductMarketingPage = React.lazy(() => import("../pages/Marketing"));
+const BestSallers = React.lazy(() => import("../pages/BestSallers"));
+const Marketing = React.lazy(() => import("../pages/Marketing"));
 
 const routes = [
   {
-    element: <ProductManagementPage />,
-    path: "/products",
+    element: <Marketing />,
+    path: "/products/products-management",
   },
+
   {
-    element: <ProductMarketingPage />,
-    path: "/products/management",
+    element: <BestSallers />,
+    path: "/products/best-sallers",
   },
 ];
 

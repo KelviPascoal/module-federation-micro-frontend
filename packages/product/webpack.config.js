@@ -45,8 +45,8 @@ module.exports = {
       filename: "remoteEntry.js",
       remotes: {},
       exposes: {
-        './ProductPageMarketing': './src/pages/Marketing/index.tsx',
-        './ProductPageManagement': './src/pages/Management/index.tsx',
+        './Marketing': './src/pages/Marketing/index.tsx',
+        './BestSallers': './src/pages/BestSallers/index.tsx',
         './ProductMenu': './src/menu/index.ts',
         './ProductRoutes': './src/routes/index.tsx'
 
